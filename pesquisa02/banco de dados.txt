@@ -1,0 +1,10 @@
+﻿CREATE TABLE IF NOT EXISTS `tb_tarrefas` (
+  `id` int(11) NOT NULL,
+  `id_status` int(11) NOT NULL DEFAULT '1',
+  `codigo` text NOT NULL,
+  `descricao` text NOT NULL,
+  `kunz` float NOT NULL,
+  `forte` float NOT NULL,
+  `bento` float NOT NULL,
+  `condor` float NOT NULL
+)
