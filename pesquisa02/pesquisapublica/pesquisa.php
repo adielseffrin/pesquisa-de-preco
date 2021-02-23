@@ -31,7 +31,7 @@ require '../privado/consulta.php';
 			<div class="row">
 				<div class="col-md-3 menu">
 					<ul class="list-group">
-                        <li class="list-group-item"><a href="index.php">Cadastrar produtos</a></li>
+                        <li class="list-group-item"><a href="../index.php">Cadastrar produtos</a></li>
                         <li class="list-group-item"><a href="pesquisa.php">Pesquisa</a></li>
 					</ul>
 				</div>
@@ -42,17 +42,23 @@ require '../privado/consulta.php';
 					<!---->
             <div class="col">
 <hr />
-	<form method="POST" action="../privado/pesquisa.php">  
-		
-		<? foreach($resultado as $indice => $dbaselec) { ?>
-			<? if($dbaselec->id_status == 2) { ?>
-				<label for="fname"><?= $dbaselec->descricao?></label><br>
- 	 			<input type="number" name="pesquisa[]" id="fname" style="width:70px; "><br>
-
-		  	<? } ?>
-		  <? } ?><br/>
-		  <button class="btn btn-success" name="enviar_pesquisa">Enviar pesquisa</button>
-		  <button class="btn btn-success" name="nova_pesquisa">Nova pesquisa</button><br/>
+	<form method="POST" enctype='multipart/form-data' action="../privado/pesquisa.php">  
+		<?php 
+      if(count($resultado) > 0){
+        foreach($resultado as $indice => $dbaselec) { 
+          if($dbaselec->id_status == 2) { 
+            echo "<label for='fname'>$dbaselec->descricao</label>
+                  <input type='number' name='pesquisa[quantidade][]' id='fname_qtde_$dbaselec->id' style='width:70px;'>
+                  <input type='hidden' name='pesquisa[id][]' id='fname_$dbaselec->id' value='$dbaselec->id'>
+                  <br/>";
+          }
+        } 
+      }
+    ?>
+      
+      <br/>
+		  <button class="btn btn-success" name="acao" value="enviar">Enviar pesquisa</button>
+		  <button class="btn btn-success" name="acao" value="nova">Nova pesquisa</button><br/>
     </form>
 		
 		
